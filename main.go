@@ -1,6 +1,12 @@
 package main
 
 func main() {
-	card := deck{"Ace of Spades", "Three of Hearts", "Jack of Clubs"}
-	card.print()
+
+	// cards := newDeck()
+	// cards.saveToFile("cards.txt")
+	cards := newDeckFromFile("cards.txt")
+	hand, remainingCards := deal(cards, 5)
+
+	hand.print()
+	remainingCards.print()
 }
