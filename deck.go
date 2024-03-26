@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 type deck []string
@@ -52,4 +54,16 @@ func newDeckFromFile(filename string) deck {
 
 	ss := strings.Split(string(bs), ",")
 	return deck(ss)
+}
+
+func (d deck) shuffle() {
+	source := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(source)
+
+	for index := range d {
+		// newPosition := rand.Intn(len(d) - 1) ---> this is a pseudo random generator because it uses fixed seed
+		newPosition := r.Intn(len(d) - 1) // real random number generator
+
+		d[index], d[newPosition] = d[newPosition], d[index]
+	}
 }
